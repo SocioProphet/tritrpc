@@ -6,3 +6,8 @@ __MACOSX/
 # python
 __pycache__/
 *.pyc
+
+# macOS cruft
+.DS_Store
+__MACOSX/
+._*
