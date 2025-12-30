@@ -1,0 +1,8 @@
+
+# macOS cruft
+.DS_Store
+__MACOSX/
+._*
+# python
+__pycache__/
+*.pyc
