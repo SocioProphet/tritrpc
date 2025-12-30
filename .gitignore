@@ -11,3 +11,8 @@ __pycache__/
 .DS_Store
 __MACOSX/
 ._*
+
+# macOS cruft
+.DS_Store
+__MACOSX/
+._*
