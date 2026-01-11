@@ -17,6 +17,7 @@ folder. It complements the top-level README by giving concrete navigation hints.
 - `fixtures/`: Canonical fixture vectors used for verification tests.
   - `*.txt`: Hex vectors (canonical frames).
   - `*.nonces`: Per-line nonces aligned with fixtures for AEAD verification.
+  - `jcs_blake3_vectors.json`: JCS canonical JSON + BLAKE3 hash vectors for receipt/content hashing.
 - `rust/`: Rust implementation of TritRPC v1.
 - `go/`: Go implementation of TritRPC v1.
 - `scripts/`: Utility scripts (e.g., pre-commit hook install).

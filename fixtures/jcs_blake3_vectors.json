@@ -1,0 +1,20 @@
+[
+  {
+    "name": "empty-object",
+    "json_input": "{ }",
+    "canonical_json": "{}",
+    "blake3_hex": "TODO"
+  },
+  {
+    "name": "simple-object",
+    "json_input": "{\"b\":2,\"a\":1}",
+    "canonical_json": "{\"a\":1,\"b\":2}",
+    "blake3_hex": "TODO"
+  },
+  {
+    "name": "string-escape",
+    "json_input": "{\"text\":\"line\\nfeed\"}",
+    "canonical_json": "{\"text\":\"line\\nfeed\"}",
+    "blake3_hex": "TODO"
+  }
+]
