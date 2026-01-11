@@ -3,18 +3,18 @@
     "name": "empty-object",
     "json_input": "{ }",
     "canonical_json": "{}",
-    "blake3_hex": "TODO"
+    "blake3_hex": "fd1271c9a8e39ca39b0010d978582c42169abbcdb7a9ada8f11116b3a0838230"
   },
   {
     "name": "simple-object",
     "json_input": "{\"b\":2,\"a\":1}",
     "canonical_json": "{\"a\":1,\"b\":2}",
-    "blake3_hex": "TODO"
+    "blake3_hex": "5e0c677afbcf864a5fad0c07aabf40cdd65920ae2a45a1eae7a86d818c1a1967"
   },
   {
     "name": "string-escape",
     "json_input": "{\"text\":\"line\\nfeed\"}",
     "canonical_json": "{\"text\":\"line\\nfeed\"}",
-    "blake3_hex": "TODO"
+    "blake3_hex": "d41299455d472cd6cd41cbe0c2939d42f2d9daff1bc55975b7867e3297ed7258"
   }
 ]
