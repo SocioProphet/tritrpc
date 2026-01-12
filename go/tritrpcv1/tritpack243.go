@@ -1,4 +1,3 @@
-
 package tritrpcv1
 
 import "fmt"
@@ -47,7 +46,7 @@ func TritUnpack243(bytes []byte) ([]byte, error) {
 			if i >= len(bytes) {
 				return nil, fmt.Errorf("truncated tail")
 			}
-			k := int(b-243+1)
+			k := int(b - 243 + 1)
 			val := int(bytes[i])
 			i++
 			group := make([]byte, k)

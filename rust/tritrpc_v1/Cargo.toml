@@ -11,3 +11,4 @@ chacha20poly1305 = { version = "0.10", features = ["xchacha20poly1305"] }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 hex = "0.4"
+subtle = "2.5"

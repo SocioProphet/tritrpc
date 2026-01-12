@@ -1,16 +1,15 @@
-
 use std::env;
 use std::fs;
 use std::process::exit;
-use tritrpc_v1::{envelope, avroenc};
+use tritrpc_v1::{avroenc, envelope};
 
-fn hex_to_bytes(s:&str)->Vec<u8>{
+fn hex_to_bytes(s: &str) -> Vec<u8> {
     let s = s.trim();
     let mut out = Vec::new();
     let mut it = s.as_bytes().chunks(2);
     for ch in it {
         let hh = std::str::from_utf8(ch).unwrap();
-        out.push(u8::from_str_radix(hh,16).unwrap());
+        out.push(u8::from_str_radix(hh, 16).unwrap());
     }
     out
 }
@@ -22,7 +21,10 @@ fn usage() {
 
 fn main() {
     let args: Vec<String> = env::args().collect();
-    if args.len() < 2 { usage(); exit(1); }
+    if args.len() < 2 {
+        usage();
+        exit(1);
+    }
     match args[1].as_str() {
         "pack" => {
             let mut svc = String::new();
@@ -33,16 +35,39 @@ fn main() {
             let mut i = 2;
             while i < args.len() {
                 match args[i].as_str() {
-                    "--service" => { i+=1; svc = args[i].clone(); }
-                    "--method"  => { i+=1; m = args[i].clone(); }
-                    "--json"    => { i+=1; jsonp = args[i].clone(); }
-                    "--nonce"   => { i+=1; nonce_hex = args[i].clone(); }
-                    "--key"     => { i+=1; key_hex = args[i].clone(); }
+                    "--service" => {
+                        i += 1;
+                        svc = args[i].clone();
+                    }
+                    "--method" => {
+                        i += 1;
+                        m = args[i].clone();
+                    }
+                    "--json" => {
+                        i += 1;
+                        jsonp = args[i].clone();
+                    }
+                    "--nonce" => {
+                        i += 1;
+                        nonce_hex = args[i].clone();
+                    }
+                    "--key" => {
+                        i += 1;
+                        key_hex = args[i].clone();
+                    }
                     _ => {}
                 }
-                i+=1;
+                i += 1;
             }
-            if svc.is_empty() || m.is_empty() || jsonp.is_empty() || nonce_hex.is_empty() || key_hex.is_empty() { usage(); exit(2); }
+            if svc.is_empty()
+                || m.is_empty()
+                || jsonp.is_empty()
+                || nonce_hex.is_empty()
+                || key_hex.is_empty()
+            {
+                usage();
+                exit(2);
+            }
             let js = fs::read_to_string(&jsonp).expect("read json");
             let v: serde_json::Value = serde_json::from_str(&js).expect("json");
             let payload = if m.ends_with(".REQ") || m.ends_with(".Req") || m.ends_with(".Request") {
@@ -55,8 +80,10 @@ fn main() {
             };
             let keyb = hex_to_bytes(&key_hex);
             let nonceb = hex_to_bytes(&nonce_hex);
-            let mut key = [0u8;32]; key.copy_from_slice(&keyb[..32]);
-            let mut nonce = [0u8;24]; nonce.copy_from_slice(&nonceb[..24]);
+            let mut key = [0u8; 32];
+            key.copy_from_slice(&keyb[..32]);
+            let mut nonce = [0u8; 24];
+            nonce.copy_from_slice(&nonceb[..24]);
             let (frame, _tag) = envelope::envelope_with_tag(&svc, &m, &payload, None, &key, &nonce);
             println!("{}", hex::encode(frame));
         }
@@ -66,16 +93,28 @@ fn main() {
             let mut i = 2;
             while i < args.len() {
                 match args[i].as_str() {
-                    "--fixtures" => { i+=1; fixtures = args[i].clone(); }
-                    "--nonces" => { i+=1; nonces = args[i].clone(); }
+                    "--fixtures" => {
+                        i += 1;
+                        fixtures = args[i].clone();
+                    }
+                    "--nonces" => {
+                        i += 1;
+                        nonces = args[i].clone();
+                    }
                     _ => {}
                 }
-                i+=1;
+                i += 1;
             }
-            if fixtures.is_empty() || nonces.is_empty() { usage(); exit(3); }
+            if fixtures.is_empty() || nonces.is_empty() {
+                usage();
+                exit(3);
+            }
             let out = tritrpc_v1_tests::verify_file(&fixtures, &nonces);
             println!("{}", out);
         }
-        _ => { usage(); exit(4); }
+        _ => {
+            usage();
+            exit(4);
+        }
     }
 }

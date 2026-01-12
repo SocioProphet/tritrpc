@@ -15,6 +15,7 @@ byte-transport, along with authenticated envelope framing. The focus of this rep
 - **Theory & conceptual model:** `docs/THEORY.md`
 - **Full specification:** `spec/README-full-spec.md`
 - **Reference implementation:** `reference/tritrpc_v1.py`
+- **Integration readiness checklist:** `docs/integration_readiness_checklist.md`
 - **Fixtures (canonical vectors):** `fixtures/`
 - **Rust port:** `rust/`
 - **Go port:** `go/`
@@ -43,8 +44,7 @@ TritRPC v1 is built on these conceptual layers:
 - **Path-A** payloads are encoded with Avro Binary Encoding (used by the reference
   implementation and most fixtures).
 - **Path-B** payloads are ternary-native (toy subset fixtures demonstrate this).
-- **AEAD integrity** uses XChaCha20-Poly1305 (or a deterministic MAC fallback) with
-  24-byte nonces for authenticated frames.
+- **AEAD integrity** uses XChaCha20-Poly1305 with 24-byte nonces for authenticated frames.
 
 For complete detail, read `docs/THEORY.md` and the full spec.
 
@@ -68,8 +68,8 @@ A more detailed guide lives in `docs/REPOSITORY_GUIDE.md`. At a glance:
 
 ### Fixture verification
 
-- Rust: `cargo test -p tritrpc_v1` validates AEAD tags using `.nonces` and checks Avro
-  payload bytes for key frames.
+- Rust: `cargo test -p tritrpc_v1` validates AEAD tags, schema/context IDs, and full-frame
+  repack determinism using `.nonces`.
 - Go: `cd go/tritrpcv1 && go test` performs the same validations.
 
 ### CLI tools
@@ -105,8 +105,8 @@ See `fixtures/vectors_hex_pathB.txt` (+ `.nonces`). These use ternary-native enc
 
 ## CI
 
-A GitHub Actions workflow is included in `.github/workflows/ci.yml` to run `cargo test`
-and `go test` on push/PR.
+A GitHub Actions workflow runs `make verify` (format checks + tests + fixture verification)
+on push/PR.
 
 ## Release workflow
 
@@ -116,8 +116,8 @@ and `go test` on push/PR.
 
 ## Repack check
 
-CI job `repack-check` rebuilds a canonical AddVertex_a frame with Rust and Go CLIs and
-compares it against the fixtures.
+Repack determinism is verified in the fixture tests by re-encoding envelopes and comparing
+full-frame bytes to fixture vectors.
 
 ## Pre-commit hook (strict AEAD verification)
 

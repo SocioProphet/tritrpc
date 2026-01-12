@@ -71,34 +71,27 @@ changes.
 
 The protocol authenticates frames using an **AEAD lane**:
 
-- The preferred suite in the reference implementation is **XChaCha20-Poly1305**.
-- Some fixtures allow a deterministic MAC fallback when AEAD primitives are not available.
-- The AEAD tag is computed over the envelope's AAD (associated data) and the payload, using
-  a 24-byte nonce. This makes integrity checks deterministic and replay-resistant.
+- The suite used across fixtures and ports is **XChaCha20-Poly1305**.
+- The AEAD tag is computed with **empty plaintext** and **AAD equal to the envelope bytes
+  before the final tag field**, using a 24-byte nonce. This includes payload and AUX data.
+- Deterministic MAC fallback support exists only in the Python reference and is
+  **non-normative for Go/Rust**; fixtures are generated with XChaCha20-Poly1305.
 
 A strict verification mode is used by fixtures and tooling to ensure tags remain correct if
 any portion of the envelope or payload changes.
 
 ## 7. Streaming and rolling nonces
 
-For streaming sequences of frames, TritRPC uses **rolling nonces**:
-
-- A base nonce is derived or agreed upon.
-- Each subsequent frame increments or derives the next nonce in a deterministic way.
-- This keeps AEAD authentication safe across a stream while retaining deterministic test
-  fixtures.
+Rolling nonces are described in early sketches, but **Go/Rust ports and fixtures use
+explicit per-frame nonces** stored in `fixtures/*.nonces`. Rolling nonce derivation is not
+implemented in those ports.
 
 ## 8. AUX structures
 
-AUX structures are optional fields that can be inserted into an envelope for additional
-metadata. The reference implementation includes:
-
-- **Trace**: tracing and correlation metadata
-- **Sig**: placeholder for signature material
-- **PoE (Proof-of-Execution)**: a strict-initial placeholder for execution proofs
-
-These are designed to be extensible so that additional metadata can be added without breaking
-existing envelope parsing.
+AUX structures are optional byte fields that can be inserted into an envelope for additional
+metadata. The current fixtures do **not** include AUX data. The Python reference contains
+toy encoders for Trace/Sig/PoE, but Go/Rust treat AUX as an opaque byte slice and do not yet
+define structured decoding.
 
 ## 9. Hypergraph service model
 

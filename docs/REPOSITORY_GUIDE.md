@@ -8,6 +8,7 @@ folder. It complements the top-level README by giving concrete navigation hints.
 - `README.md`: Project summary, build instructions, and high-level navigation.
 - `docs/`: Conceptual and procedural documentation.
   - `THEORY.md`: Theory and conceptual model for TritRPC v1.
+  - `integration_readiness_checklist.md`: Pre-integration verification checklist.
   - `REPOSITORY_GUIDE.md`: This file.
 - `spec/`: Specification material.
   - `README-full-spec.md`: The full spec text (repo copy).
