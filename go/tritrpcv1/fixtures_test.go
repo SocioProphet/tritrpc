@@ -74,6 +74,7 @@ func TestFixturesAEADAndPayloads(t *testing.T) {
 		{"fixtures/vectors_hex_stream_avrochunk.txt", "fixtures/vectors_hex_stream_avrochunk.txt.nonces"},
 		{"fixtures/vectors_hex_unary_rich.txt", "fixtures/vectors_hex_unary_rich.txt.nonces"},
 		{"fixtures/vectors_hex_stream_avronested.txt", "fixtures/vectors_hex_stream_avronested.txt.nonces"},
+		{"fixtures/vectors_hex_pathB.txt", "fixtures/vectors_hex_pathB.txt.nonces"},
 	}
 	key := [32]byte{}
 	for _, s := range sets {

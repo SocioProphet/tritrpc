@@ -70,6 +70,10 @@ fn verify_all_frames_and_payloads() {
             "fixtures/vectors_hex_stream_avronested.txt",
             "fixtures/vectors_hex_stream_avronested.txt.nonces",
         ),
+        (
+            "fixtures/vectors_hex_pathB.txt",
+            "fixtures/vectors_hex_pathB.txt.nonces",
+        ),
     ];
     let key = [0u8; 32];
     for (fx, nx) in sets {

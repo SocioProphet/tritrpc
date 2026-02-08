@@ -14,6 +14,7 @@ and the corrective actions taken.
 | A5 | **Medium** | Spec/docs claimed MAC fallback, rolling nonces, and AUX structures were supported across ports. | Spec/docs now reflect current port behavior (`spec/README-full-spec.md` L7-L23; `docs/THEORY.md` L70-L94). | **Fixed** |
 | A6 | **Low** | README referenced CI/repack-check jobs that did not exist. | Added `Makefile` + CI workflow and updated README (`Makefile` L1-L20; `.github/workflows/ci.yml` L1-L27; `README.md` L106-L120). | **Fixed** |
 | A7 | **Low** | Tag comparisons used direct equality; constant-time compare was missing. | Constant-time comparisons now used in Go/Rust fixture checks (`go/tritrpcv1/fixtures_test.go` L117-L122; `rust/tritrpc_v1/tests/fixtures.rs` L123-L125). | **Fixed** |
+| A8 | **Medium** | Go/Rust fixture verification omitted Path‑B fixtures, leaving repack determinism unchecked for ternary payload frames. | Path‑B fixtures are now included in Go/Rust fixture test sets (`go/tritrpcv1/fixtures_test.go` L73-L77; `rust/tritrpc_v1/tests/fixtures.rs` L60-L79). | **Fixed** |
 
 ## Scope checklist coverage
 
